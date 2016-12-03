@@ -1,0 +1,64 @@
+<div  class="container" id="userhome">
+	<div class="col-lg-3  col-md-3 col-sm-2"></div>
+	<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+		<div class="honeycombs">
+
+			<div class="comb hvr-float-shadow" ng-click="vm.StockInventory()"> <img src="../public/images/1.jpg" /> 
+			<span>Stock </br> Addition</span> </div>
+
+			<div class="comb hvr-float-shadow" ng-click="vm.CustomerService()"> <img src="../public/images/2.jpg" /> 
+			<span>Customer </br> Service</span> </div>
+
+			<div class="comb hvr-float-shadow" ng-click=""> <img src="../public/images/3.jpg" /> 
+			<span>Reports</span> </div>
+			
+			<div class="comb hvr-float-shadow" ng-click="vm.StockDisplay()"> <img src="../public/images/4.jpg" /> 
+			<span>Stock </br> Display</span> </div>
+			
+			<div class="comb hvr-float-shadow"> <img src="../public/images/5.jpg" /> 
+			<span>WELCOME</span> </div>
+			
+			<div class="comb hvr-float-shadow"> <img src="../public/images/1.jpg" /> 
+			<span>Offers/ </br> Analytics</span> </div>
+			
+			<div class="comb hidden-xs " style="display:none!important">
+			<span>Image Caption 7</span> </div>
+			
+			<div class="comb hvr-float-shadow"> <img src="../public/images/2.jpg" /> 
+			<span>Stock </br> Admin</span></div>
+		
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3 col-sm-2"></div>
+</div>	 
+
+<script>
+	$(document).ready(function(){
+	    var w = window.innerwidth;
+	    if(w>1200){
+	        w = 165;
+	    }
+	   else if(w>1000){
+	   	w= 165;
+	   }
+	    else if(w>900){
+	    	w=192;
+	    }
+	    else if(w>600){
+	    	w=145;
+	    }
+	    else if(w>400){
+	    	w=140;
+	    }
+	    else if(w>300){
+	    	w=90;
+	    }
+	    else{
+	    	w=175;
+	    }
+	    $('.honeycombs').honeycombs({
+	    combWidth: w,
+	    margin: 10
+	    });
+	});
+</script>

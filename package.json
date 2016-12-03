@@ -1,0 +1,19 @@
+{
+  "name": "Qlez",
+  "version": "0.2.5",
+  "main": "server.js",
+  "description": "A Mean app ",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "dependencies": {
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.5",
+    "body-parser": "~1.4.2",
+    "express": "~4.5.1",
+    "jsonfile": "^2.4.0",
+    "method-override": "~2.0.2"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

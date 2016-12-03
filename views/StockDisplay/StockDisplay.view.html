@@ -1,0 +1,61 @@
+<div id="StockDisplayPage">
+    <div class="modal-header StockDiv">
+        <h3 class="" style="text-align:center;">Stock Display</h3>
+    </div>
+    <div class="modal-body StockDiv text-center">
+		<div ng-init="getAllInventoryItems()">
+			<div ng-if="isLoading != null">
+				<label id="loading">{{isLoading}}</label>
+			</div>
+			<form name="searchproductform" ng-if="isLoading == null">
+				<div class="row">
+					<div class="col-lg-4" style="padding:20px">
+						<select class="form-control" id="searchBy" ng-model="searchBy" ng-change="clearText()">
+							<option value="productID" selected>Product ID</option>
+							<option value="productName">Product Name</option>
+							<option value="companyName">Company Name</option>
+						</select>
+					</div>
+					<div class="col-lg-4" ng-if="searchBy=='productID'" style="padding:20px">
+					    <button class="btn" style="width:200px;border: 1px solid" ng-click="getSinglePID()">Scan ID</button> 
+		            </div>
+					<div class="col-lg-4" style="padding:20px">
+						<div  class="form-group col-md-12" ng-class="{ 'has-error' : searchproductform.productName.$invalid && !searchproductform.productName.$pristine }">
+		                    <input type="text" name="productName" id="searchText" class="form-control" ng-model="searchText" placeholder="{{searchBy}}" value="{{searchText}}" required />
+		                    <span ng-show="searchproductform.searchText.$dirty && searchproductform.searchText.$error.required" class="help-block">{{searchBY}} is required</span>
+		                </div>
+					</div>
+				</div>
+			</form>	
+			<div class="row"  ng-if="isLoading == null" style="padding-top:2%">
+	           	<table class="table" cellpadding="2px" cellspacing="2px" border="1px solid ">
+	                <thead class="thead-inverse">
+					<tr>
+						<th>Sl No</th>
+						<th>Product ID</th>
+						<th>Product Name</th>
+						<th>Product Company</th>
+						<th>Product Category</th>
+						<th>Product Description</th>
+						<th>Product OfferPrice</th>
+						<th>Product Tax</th>
+						<th>Product Expiry</th>
+						<th>Invoice Date</th>
+					</tr>
+					<tr ng-repeat="inventoryItem in allInventoryItem | filter:filterProducts">
+						<th>{{$index+1}}</th>
+						<th>{{inventoryItem.pID}}</th>
+						<th>{{inventoryItem.pName}}</th>
+						<th>{{inventoryItem.pManufacturer}}</th>
+						<th>{{inventoryItem.pCategory}}</th>
+						<th>{{inventoryItem.pDesc}}</th>
+						<th>{{inventoryItem.pOfferprice}}</th>
+						<th>{{inventoryItem.pTax}}</th>
+						<th>{{inventoryItem.pExpiry}}</th>
+						<th>{{inventoryItem.pInvoicedate}}</th>
+					</tr>
+				</table>			
+			</div>
+		</div>
+	</div>
+</div>

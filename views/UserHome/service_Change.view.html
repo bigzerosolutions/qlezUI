@@ -1,0 +1,16 @@
+<div id="settingsPage">
+	<div class=" container">
+		<div class="row text-center" id="settingDiv">
+			<h1>Hi {{user}} !</h1>
+			<br>
+			<br>
+				<h3>Choose the Environment setup.</h3>
+			<br>
+			<br>
+			 <button type="button" class="btn btn-info" aria-expanded="false" ng-click="setEnv(Dev)">Dev</button>
+			 <button type="button" class="btn btn-info" aria-expanded="false" ng-click="setEnv(QA)"> QA </button>
+			 <button type="button" class="btn btn-info" aria-expanded="false" ng-click="setEnv('Prod')">Prod</button>
+			 <p id="settingDescription">{{settingDescription}}</p>
+		</div>
+	</div>
+</div>

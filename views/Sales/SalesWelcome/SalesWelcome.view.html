@@ -1,0 +1,16 @@
+<div id="SalesPage">
+	<div class=" container">
+		<div class="row" ng-if="isLoading != null" style="padding-top: 20%;">
+			<label class="loading">{{isLoading}}</label>
+		</div>
+		<div id="saleWelcomeDiv" class="text-center" ng-if="isLoading == null">
+			<h1>Welcome to Qlez Shopping</h1>
+			<br>
+			<br>
+				<h3>Let's go forward with your Billing..</h3>
+			<br>
+			<br>
+			<a data-toggle="modal"  style="cursor: pointer" ng-click="showBill()"><i class="fa fa-thumbs-o-up" aria-hidden="true" style="font-size:55px"></i></a>
+		</div>
+	</div>
+</div>

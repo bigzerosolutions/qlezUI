@@ -1,0 +1,132 @@
+<div id="InventoryPage">
+	<div class="container">
+		<div class="row" id="InventoryDiv">
+			<div class="col-lg-3"></div>	
+			<div class="col-lg-6" id="CompanyEntryDiv" align="center">
+				<p class="InventoryHeading">Stock Inventory</p>
+				<form name="companyform" ng-submit="companyformSubmit()">
+					<div class="form-group" ng-class="{ 'has-error' : companyform.compname.$invalid && !companyform.compname.$pristine }">
+                    	<input type="text" name="compname" id="compname" class="form-control" ng-model="company.Name" placeholder="Enter Company Name" required onchange/>
+                    	<span ng-show="companyform.compname.$dirty && companyform.compname.$error.required" class="help-block">Company Name is required</span>
+                	</div>
+					<div class="form-group" ng-class="{ 'has-error' : companyform.InvoiceDate.$invalid && !companyform.InvoiceDate.$pristine }">
+                    	<input type="text" name="InvoiceDate" id="InvoiceDate" class="form-control"  ng-model="InvoiceDate" ng-bind="InvoiceDate" placeholder="Date of Stock Collection" disabled="" />
+                    	<span ng-show="companyform.InvoiceDate.$dirty && companyform.InvoiceDate.$error.required" class="help-block">Invoice Date is required</span>
+                	</div>
+					<div class="form-group" ng-class="{ 'has-error' : companyform.staffname.$invalid && !companyform.staffname.$pristine }">
+                    	<input type="text" name="staffname" id="staffname" class="form-control" ng-model="InvoiceStaff" ng-bind="vm.InvoiceStaff" disabled="" />
+                    	<span ng-show="form.staffname.$dirty && form.staffname.$error.required" class="help-block">Staffname is required</span>
+                    </div>
+					<div class="form-group">
+                    	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ProductEntry" style="margin:20px" ng-disabled="companyform.$invalid" ng-click="getSinglePID()">Single Product Entry</button>		
+                    	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ProductEntry"  style="margin:20px" ng-disabled="companyform.$invalid" ng-click="getBulkPID()">Bulk Product Entry</button>
+                	</div>
+                </form>
+            </div>
+            <div class="col-lg-3"></div>
+		</div>
+	</div>
+
+
+	<div id="ProductEntry" class="modal fade" role="dialog" style="padding-left:0px" align="center">
+	<!-- <div ng-if="isLoading != null" class="modal-dialog modal-md" style="color:#AAA;z-index: 1000000">
+	<div class="row">
+		<label style="width:40%;text-align:center;padding: 10px;background-color:white;margin-left:30%">{{isLoading}}</label>
+		</div>
+	</div> -->
+		<div  class="modal-dialog modal-md">
+		    <div class="modal-content">
+		        <div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        	<h3 class="modal-title">Product Entry</h3>
+		      	</div>
+		      	<div ng-if="isLoading != null" class="modal-header" style="color:#AAA;z-index: 1000000">
+					<div class="row">
+						<label class="loading">{{isLoading}}</label>
+					</div>
+				</div>
+		      	<div  class="modal-body row">
+		      		<div class="col-lg-12">
+		      			<form name="productform">
+			      			<div class="row">
+								<div ng-if="productEntryType=='single'" class="form-group col-md-12" ng-class="{ 'has-error' : productform.productID.$invalid && !productform.productID.$pristine }">
+		                    		<input type="text" name="productID" id="productID" class="form-control" ng-model="pID" placeholder="Product ID" required readonly/>
+		                    		<span ng-show="productform.productID.$dirty && productform.productID.$error.required && dotOccured" class="help-block">Product ID is required</span>
+		                		</div>
+		                		<div ng-if="productEntryType=='bulk'"  class="form-group col-md-12" ng-class="{ 'has-error' : bulkproductform.productNos.$invalid && !bulkproductform.productID.$pristine }">
+		                    		<input type="number" name="productNos" id="productNos" class="form-control" ng-model="product.Nos" placeholder="Number of Products" min="2" ng-keypress="noDecimal($event)" required />
+		                    		<span ng-show="bulkproductform.productNos.$dirty && bulkproductform.productNos.$error.required" class="help-block">Number of Products is required</span>
+		                		</div>
+		                	</div>
+		                	<div class="row">
+								<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productName.$invalid && !productform.productName.$pristine }">
+		                    		<input type="text" name="productName" id="productName" class="form-control"  ng-model="product.pName"  placeholder="Product Name" />
+		                    		<span ng-show="productform.productName.$dirty && productform.productName.$error.required" class="help-block">Product Name is required</span>
+		                		</div>
+		                		
+								<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productCategory.$invalid && !productform.productCategory.$pristine }">
+									<select class="form-control" type="text" name="productCategory" id="productCategory" placeholder="Product Category" ng-model="product.pCategory" ng-change="categoryChange()" ng-options="o.category_name for o in options" required>
+										<option value="" selected hidden>Select Category</option>
+									</select>
+		                    		<span ng-show="productform.productCategory.$dirty && productform.productCategory.$error.required" class="help-block">Product Category is required</span>
+		                		</div>
+							</div>
+		               		<div class="row">
+								<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productDescription.$invalid && !productform.productDescription.$pristine }">
+		                	    	<input type="text" name="productDescription" id="productDescription" class="form-control" ng-model="product.pDesc" placeholder="Product Description" required />
+		                	    	<span ng-show="productform.productDescription.$dirty && productform.productDescription.$error.required" class="help-block">Product Description is required</span>
+		                		</div>
+		                		<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productExpiry.$invalid && !productform.productExpiry.$pristine }">
+	                	    		<input type="text" name="productExpiry" class="form-control clsDatePicker" name="productExpiry" id="productExpiry"   ng-model="product.Expiry" placeholder="Product Expiry Date" required="">
+									<span ng-show="productform.productExpiry.$dirty && productform.productExpiry.$error.required" class="help-block">Expiry Date is required</span>
+								</div>
+							</div>
+		               		<div class="row">
+	                	    	<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productTax.$invalid && !productform.productTax.$pristine }">
+	                	    		<input type="text" name="productTax" min="0" id="productTax" class="form-control" ng-model="product.pTax" ng-keypress="onlyOneDecimal1($event)" readonly placeholder="Product Tax" required />
+	                	    		<span ng-show="productform.productTax.$dirty && productform.productTax.$error.required" class="help-block">Tax Applied is required</span>
+	                			</div>
+	                			<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productCost.$invalid && !productform.productCost.$pristine }">
+		                	    	<input type="text" name="productCost" id="productCost" class="form-control" ng-model="product.pCost" placeholder="Product Unit Cost" ng-keypress="onlyOneDecimal($event)" min="1" required="" />
+		                	    	<span ng-show="productform.productCost.$dirty && productform.productCost.$error.required" class="help-block">Unit Cost is required</span>
+		                	    </div>
+							</div>
+		                	<div class="row">
+		                    	<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productOffer.$invalid && !productform.productOffer.$pristine }">
+		                    		<input type="text" name="productOffer" id="productOffer" class="form-control" ng-model="product.offerprice" placeholder="Product Offer Price" min="0" ng-keypress="onlyOneDecimal3($event)" ng-change="offerPriceChange()" required />
+		                    		<span ng-show="productform.productOffer.$dirty && productform.productOffer.$error.required" class="help-block">Offer Price is required</span>
+		                		</div>
+								<div class="form-group col-md-6" ng-class="{ 'has-error' : productform.productMRP.$invalid && !productform.productMRP.$pristine }">
+		                    		<input type="text" name="productMRP" id="productMRP" class="form-control" ng-model="product.pMrp" placeholder="Product MRP" min="0" ng-keypress="onlyOneDecimal2($event)"  required="" readonly/>
+		                    		<span ng-show="productform.productMRP.$dirty && productform.productMRP.$error.required" class="help-block">Product MRP is required</span>
+								</div>
+		                	</div>
+							<div class="row">
+								<div class="form-group" style="padding-top:20px;text-align:center">
+	                    			<button type="button" class="btn btn-info btn-lg" style="margin:20px;width:200px" ng-disabled="productform.$invalid" ng-click="productformSubmit(productEntryType)">Add to Stock</button>
+	                    			<button id="clsBtn" name="clsBtn" type="button" class="btn btn-danger btn-lg" data-dismiss="modal" ng-click="clearAll()" style="margin:20px;width:200px">Close</button>
+	                			</div>
+	                		</div>
+						</form>
+					</div>
+		      	</div>
+		    </div>
+		</div>
+	</div>
+</div>
+
+<script>
+	 $('#productExpiry').datepicker({
+     dateFormat: 'dd-mm-yy',
+     minDate: '+5d',
+     altFormat: "yy-mm-dd"
+ });
+
+	$(document).keydown(function(e){	
+		var key = e.charCode || e.keyCode;
+		if (key == 187 || key == 189){ 
+	 		return false;
+		} 
+		else if(key==190){}	
+	});
+</script>

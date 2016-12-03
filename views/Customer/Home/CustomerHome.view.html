@@ -1,0 +1,46 @@
+
+<div id="customerHome">
+	<div  class="container userhome row" style="padding-top:9%" >
+		<div class="col-lg-3  col-md-3 col-sm-2"></div>
+ 		<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+ 			<div align="center">
+ 				<button class="button_home_style" ng-click="vm.CustomerRegistration()">
+ 				<i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp; Customer Registration</button>
+ 			</div>
+			<br><br><br>
+ 			<div align="center">
+ 				<button class="button_home_style" ng-click="vm.CustomerActions()">
+ 				<i class="fa fa-tasks" aria-hidden="true"></i> &nbsp; Customer Actions</button>
+ 			</div>
+			<br><br><br>
+ 		</div>
+		<div class="col-lg-3 col-md-3 col-sm-2"></div>
+	</div>	 
+</div>
+<script>
+	$(document).ready(function(){
+	    var w = window.innerHeight;
+	    if(w>1200){
+	        w = 200;
+	    }
+	   else if(w>1000){
+	   	w= 165;
+	    }
+	    else if(w>900){
+	    	w=192;
+	    }
+	    else if(w>600){
+	    	w=145;
+	    }
+	    else if(w>400){
+	    	w=130;
+	    }
+	    else{
+	    	w=95;
+	    }
+	    $('.honeycombs').honeycombs({
+	    combWidth: w,
+	    margin: 10
+	    });
+	});
+</script>

@@ -1,0 +1,101 @@
+<div class="" style="width:100%;background-repeat:no-repeat;background-size:cover;position:absolute;top:0;bottom:0;left:0;right:0;">
+    <div class="modal-dialog modal-md" style="width:90%">
+        <!-- Modal content-->
+        <div class="modal-content scrollbarBlack" style="overflow-y: auto;max-height: 430px;">
+            <div class="modal-header">
+                <h2 class="modal-title" style="text-align:center;">Customer Actions</h2>
+            </div>
+            <div class="modal-body row">
+                <div class="col-lg-12">
+                    <form name="customerform" ng-submit="filterCards()" style="height: auto">
+                        <div class="row" >
+                            <div class="col-lg-4" align="center">
+                                <select class="form-control" id="searchBy" ng-model="searchBy" ng-change="clearText()">
+                                    <option value="CustomerID" selected>Customer ID</option>
+                                    <option value="Customer Name">Customer Name</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-4 text-center" ng-if="searchBy=='CustomerID'">
+                                <button class="btn" style="width:80%;border: 1px solid;" ng-click="getSingleCID()">Scan ID</button>
+                            </div>
+                            <div class="col-lg-4">
+                                <div  class="form-group col-md-12" ng-class="{ 'has-error' : searchproductform.productName.$invalid && !searchproductform.productName.$pristine }">
+                                    <input type="text" name="customerName" id="searchText" class="form-control" ng-model="searchText" placeholder="{{searchBy}}" value="{{searchText}}" required />
+                                    <span ng-show="searchproductform.searchText.$dirty && searchproductform.searchText.$error.required" class="help-block">{{searchBY}} is required</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" ng-style="custDOB" style="display: none;">
+                                <div class="form-group" ng-class="{ 'has-error' : customerform.customerDOB.$invalid && !customerform.customerDOB.$pristine }">
+                                    <input type="text" class="form-control clsDatePicker" name="customerDOB" id="customerDOB"   ng-model="customerDOB" placeholder="Date of Birth" required="">
+                                    <span ng-show="customerform.customerDOB.$dirty && customerform.customerDOB.$error.required" class="help-block">Customer DOB is required</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row" >
+                        <table class="table" >
+                            <thead ng-if="isLoading==null" class="thead-inverse">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Id</th>
+                                    <th>DOB</th>
+                                    <th>Contact No</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-if="isLoading==null">
+                                <tr ng-repeat="cost in customers | filter:filterCards">
+                                    <td>{{$index+1}}</td>
+                                    <td ng-if="onEdit != cost.customer_ID">{{cost.customer_Name}}</td>
+                                    <td ng-if="onEdit == cost.customer_ID">
+                                    	<input type="text" name="customerName" id="customerName" class="form-control" ng-model="customer.customerName" placeholder="New customer Name" required onchange/>
+                                    </td>
+                                    <td>{{cost.customer_ID}}</td>
+                                    <td ng-if="onEdit != cost.customer_ID">{{cost.customer_DOB}}</td>
+                                    <td ng-if="onEdit == cost.customer_ID">
+                                        <input type="text" name="customerDOB" id="customerDOB" class="form-control" ng-model="customer.customerDOB" placeholder="New customer DOB" required onchange/>
+                                    </td>
+                                    <td ng-if="onEdit != cost.customer_ID">{{cost.customer_Contact}}</td>
+                                    <td ng-if="onEdit == cost.customer_ID">
+                                        <input type="text" name="customerContact" id="customerContact" class="form-control" ng-model="customer.customerContact" placeholder="New customer Contact" required onchange/>
+                                    </td>
+                                    <td ng-if="onEdit != cost.customer_ID">{{cost.customer_Email}}</td>
+                                    <td ng-if="onEdit == cost.customer_ID">
+                                        <input type="text" name="customerEmail" id="customerEmail" class="form-control" ng-model="customer.customerEmail" placeholder="New customer Email" required onchange/>
+                                    </td>
+
+                                    <td ng-if="onEdit != cost.customer_ID">{{cost.customer_Address}}</td>
+                                    <td ng-if="onEdit == cost.customer_ID">
+                                    	<input type="text" name="customerAddress" id="customerAddress" class="form-control" ng-model="customer.customerAddress" placeholder="New customer Address" required onchange/>
+                                    </td>
+                                    <td ng-if="onEdit != cost.customer_ID">
+                                        <button type="button" ng-disabled="onEdit !=null && onEdit != cost.customer_ID" class="btn btn-info" data-toggle="modal" ng-click="editCustomer(cost.customer_ID)">Edit</button>
+                                    </td>
+                                    <td ng-if="onEdit == cost.customer_ID">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" ng-click="saveCustomers(cost.customer_ID)">Save</button>
+                                    </td>
+                                    <td >
+                                        <button type="button" ng-disabled="onEdit != cost.customer_ID" class="btn btn-info" data-toggle="modal" ng-click="deleteCustomers(cost.customer_ID)">X</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <label ng-if="isLoading!=null">{{isLoading}}</label>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  $('#customerDOB').datepicker({
+     dateFormat: 'dd-mm-yy',
+     maxDate: '-15y',
+     altFormat: "yy-mm-dd"
+ });
+</script>
