@@ -99,6 +99,7 @@ console.log = function(d) { //
 
 app.post('/loginAuth', function(req , res) 
 {
+  console.log("user entry : "+req.body);
     request({
       uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/LoginServlet",
       method: "POST",
@@ -109,6 +110,7 @@ app.post('/loginAuth', function(req , res)
       timeout: 5000,
     }, 
     function(success, response, body) {
+      console.log("response : "+body);
       if(body == "success")
       {
           console.log("Login : The user has been verified.");
