@@ -88,7 +88,7 @@ var fs = require('fs');
 var util = require('util');
 /*var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
 */var log_stdout = process.stdout;
-var baseAPIurl = 'http://localhost:8080/AngularJSWithRestful';
+var baseAPIurl = 'http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com';
 /*
 console.log = function(d) { //
   log_file.write(util.format(d) + '\n');
@@ -100,7 +100,7 @@ console.log = function(d) { //
 app.post('/loginAuth', function(req , res) 
 {
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/LoginServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/LoginServlet",
       method: "POST",
       form: {
         username: req.body.username,
@@ -128,7 +128,7 @@ app.post('/addProduct', function(req , res)
 {
     console.log("Add Product : Adding Product to Db Started");
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/AddProduct",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/AddProduct",
       method: "POST",
       form: {
           product_ID: req.body.pID,
@@ -167,7 +167,7 @@ app.get('/loadCategory', function(req , res)
 {
     console.log("Load Category : Initiating request to fetch product category list from service");
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/LoadCategoryServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/LoadCategoryServlet",
       method: "POST",
       timeout: 5000,
     }, 
@@ -226,7 +226,7 @@ app.post('/customerActions', function(req , res)
         data = {actionRequired : req.body.action};
     }
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/customerServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/customerServlet",
       method: "POST",
       form: data,
       timeout: 15000,
@@ -275,7 +275,7 @@ app.post('/getSingleID', function(req , res)
 {
       console.log("Single ID : Initiating request to fetch single id from service");
       request({
-      uri: "http://localhost:8080/AngularJSWithRestful/InventoryServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/InventoryServlet",
       method: "POST",
       timeout: 15000,
       }, 
@@ -302,7 +302,7 @@ app.post('/setEnv', function(req , res)
     key_value = req.body.Env_key;
     console.log("setEnv : Initiating request to set Env from service "+req.body.Env_key);
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/SetEnvironmentServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/SetEnvironmentServlet",
       method: "POST",
       form: {
         key : key_value
@@ -330,7 +330,7 @@ app.get('/getPurchasedItems', function(req , res)
     
     console.log("Purchased Items : Initiating request to fetch Purchased Item Details from service");
      request({
-      uri: "http://localhost:8080/AngularJSWithRestful/PurchasedItems",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/PurchasedItems",
       method: "POST",
       timeout: 15000,
       }, 
@@ -354,7 +354,7 @@ app.post('/transactionServlet', function(req , res)
 {
     console.log("transaction : Initiating payment request.");
      request({
-      uri: "http://localhost:8080/AngularJSWithRestful/transactionServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/transactionServlet",
       method: "POST",
       form:{
         t_ID : req.body.transaction_ID,
@@ -385,7 +385,7 @@ app.get('/getAllInventoryItems', function(req , res)
 {
     console.log("Inventory Items : Initiating request to fetch product Inventory from service");
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/CompleteInventoryServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/CompleteInventoryServlet",
       method: "POST",
       timeout: 5000,
     }, 
@@ -409,7 +409,7 @@ app.post('/changeUserPassword', function(req , res)
 {
     console.log("Change Password : Change Password function called");
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/changePasswordServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/changePasswordServlet",
       method: "POST",
       form: {
         username: req.body.userID
@@ -437,7 +437,7 @@ app.post('/updateProductDB', function(req , res)
     console.log("Update Product Table : Change Password function called");
 
     request({
-      uri: "http://localhost:8080/AngularJSWithRestful/UpdateProductTableServlet",
+      uri: "http://qlez.jeudmu4ph3.us-west-2.elasticbeanstalk.com/UpdateProductTableServlet",
       method: "POST",
       timeout: 5000,
     }, 
